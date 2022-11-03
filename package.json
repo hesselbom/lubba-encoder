@@ -1,0 +1,28 @@
+{
+  "name": "lubba-encoder",
+  "version": "1.0.0",
+  "main": "./dist/lubba-encoder.cjs",
+  "license": "MIT",
+  "exports": {
+    "./lubba-encoder": "./dist/lubba-encoder.cjs"
+  },
+  "scripts": {
+    "dist": "rm -rf dist && rollup -c",
+    "prepare": "npm run dist",
+    "test": "jest",
+    "lint": "standard"
+  },
+  "devDependencies": {
+    "jest": "27.5.1",
+    "rollup": "^2.58.3",
+    "standard": "16.0.4"
+  },
+  "dependencies": {
+    "lib0": "0.2.49",
+    "yaml": "2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hesselbom/lubba-encoder"
+  }
+}
