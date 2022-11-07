@@ -218,3 +218,29 @@ test('works encoding for url hash', () => {
   expect(decodedFromHash).toEqual(encoded)
   expect(decoded).toEqual(result)
 })
+
+test('url encodes slashes to work in browser', () => {
+  // This specific jsonObject generates a / with base64 hash encoding. Should be replaced by encodeURIComponent('/') == '%2F'
+  const jsonObject = {
+    isCustom: true,
+    isMetric: true,
+    title: 'My custom workout',
+    activityType: 37,
+    locationType: 3,
+    parts: [
+      { title: 'Warmup' },
+      { title: 'Run', goalType: 'distance', goalValue: 21000, targetType: 'paceSplits', targetMin: 4800, targetMax: 1 },
+      { title: 'Cooldown' }
+    ]
+  }
+  const encodingVersion = 1
+  const encoded = encodeJsonObjectToLubbaData(jsonObject, encodingVersion)
+  const hash = encodeLubbaDataToHash(encoded)
+  const hashForUrl = encodeLubbaDataToHash(encoded, true)
+
+  expect(hash.includes('/')).toBe(true)
+  expect(hash.includes('%2F')).toBe(false)
+
+  expect(hashForUrl.includes('/')).toBe(false)
+  expect(hashForUrl.includes('%2F')).toBe(true)
+})

@@ -228,12 +228,17 @@ export function decodeLubbaData (data) {
 }
 
 // Some short encoding (base64)
-export function encodeLubbaDataToHash (data) {
+export function encodeLubbaDataToHash (data, urlEncode) {
   let s = ''
   for (const byte of data) {
     s += String.fromCharCode(byte)
   }
-  return btoa(s)
+
+  if (urlEncode) {
+    return btoa(s).replace(/\//g, '%2F')
+  } else {
+    return btoa(s)
+  }
 }
 
 export function decodeLubbaDataFromHash (hash) {

@@ -1,6 +1,6 @@
 {
   "name": "lubba-encoder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/lubba-encoder.cjs",
   "license": "MIT",
   "exports": {
@@ -15,6 +15,7 @@
   "devDependencies": {
     "jest": "27.5.1",
     "rollup": "^2.58.3",
+    "rollup-jest": "3.1.0",
     "standard": "16.0.4"
   },
   "dependencies": {
