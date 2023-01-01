@@ -42,7 +42,11 @@ const valueGoalTypeMap = {
   pace: 14, // used for target type
   paceSplits: 15,
   smartDistance: 16,
-  smartDuration: 17
+  smartDuration: 17,
+  speedCurrent: 18,
+  speedAverageDuration: 19,
+  totalActiveEnergyBurned: 20,
+  activeEnergyBurnedInterval: 21
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
