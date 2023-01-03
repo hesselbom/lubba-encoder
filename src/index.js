@@ -23,7 +23,8 @@ const layoutMap = {
   1: 1,
   '2+1': 2,
   '2+2': 3,
-  '2+3': 4
+  '2+3': 4,
+  '3+3': 5
 }
 const valueGoalTypeMap = {
   duration: 1,
@@ -46,7 +47,13 @@ const valueGoalTypeMap = {
   speedCurrent: 18,
   speedAverageDuration: 19,
   totalActiveEnergyBurned: 20,
-  activeEnergyBurnedInterval: 21
+  activeEnergyBurnedInterval: 21,
+  totalEnergyBurned: 22,
+  energyBurnedInterval: 23,
+  runningPower: 24,
+  runningVerticalOscillation: 25,
+  runningGroundContactTime: 26,
+  rpe: 27
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
