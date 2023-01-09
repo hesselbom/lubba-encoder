@@ -24,7 +24,8 @@ const layoutMap = {
   '2+1': 2,
   '2+2': 3,
   '2+3': 4,
-  '3+3': 5
+  '3+3': 5,
+  '1+1': 6
 }
 const valueGoalTypeMap = {
   duration: 1,
