@@ -53,7 +53,8 @@ const valueGoalTypeMap = {
   runningPower: 24,
   runningVerticalOscillation: 25,
   runningGroundContactTime: 26,
-  rpe: 27
+  rpe: 27,
+  speed: 28
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
