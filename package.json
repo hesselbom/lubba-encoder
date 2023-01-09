@@ -1,6 +1,6 @@
 {
   "name": "lubba-encoder",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "./dist/lubba-encoder.cjs",
   "license": "MIT",
   "exports": {
