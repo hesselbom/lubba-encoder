@@ -56,7 +56,9 @@ const valueGoalTypeMap = {
   runningGroundContactTime: 26,
   rpe: 27,
   speed: 28,
-  cyclingPower: 29
+  cyclingPower: 29,
+  pacePer100Current: 30,
+  pacePer100AverageDuration: 31
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
