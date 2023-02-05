@@ -58,7 +58,10 @@ const valueGoalTypeMap = {
   speed: 28,
   cyclingPower: 29,
   pacePer100Current: 30,
-  pacePer100AverageDuration: 31
+  pacePer100AverageDuration: 31,
+  laps: 32,
+  lapsInterval: 33,
+  smartLaps: 34
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
