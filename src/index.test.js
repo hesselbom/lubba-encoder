@@ -47,6 +47,7 @@ parts:
     targetMax: -1
 - title: Cooldown
   goalType: distance
+  goalTypeVariation: 1
   goalIsVariable: true
   targetType: bpm
   targetMin: 0
@@ -108,6 +109,7 @@ const jsonObject = {
     {
       title: 'Cooldown',
       goalType: 'distance',
+      goalTypeVariation: 1,
       goalIsVariable: true,
       targetType: 'bpm',
       targetMin: 0,
@@ -159,6 +161,7 @@ const result = {
     {
       title: 'Cooldown',
       goalType: 'distance',
+      goalTypeVariation: 1,
       goalIsVariable: true,
       targetType: 'bpm',
       targetMin: 0,

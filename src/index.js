@@ -95,6 +95,7 @@ function encodePart (part, encoder) {
   flagsB = updateBit(flagsB, 0, part.targetMax != null)
   flagsB = updateBit(flagsB, 1, part.repeats != null && part.repeats > 0)
   flagsB = updateBit(flagsB, 2, part.repeatParts != null && part.repeatParts.length > 0)
+  flagsB = updateBit(flagsB, 3, part.goalTypeVariation != null)
 
   encoding.writeUint8(encoder, flagsA)
   encoding.writeUint8(encoder, flagsB)
@@ -121,6 +122,7 @@ function encodePart (part, encoder) {
 
   if (part.goalType != null) encoding.writeUint8(encoder, valueGoalTypeMap[part.goalType])
   if (part.goalValue != null) encoding.writeFloat64(encoder, part.goalValue)
+  if (part.goalTypeVariation != null) encoding.writeUint8(encoder, part.goalTypeVariation)
 
   if (part.targetType != null) encoding.writeUint8(encoder, valueGoalTypeMap[part.targetType])
   if (part.targetMin != null) encoding.writeFloat64(encoder, part.targetMin)
@@ -156,6 +158,7 @@ function decodePart (decoder) {
   const hasTargetMax = getBit(flagsB, 0)
   const hasRepeats = getBit(flagsB, 1)
   const hasRepeatParts = getBit(flagsB, 2)
+  const hasGoalTypeVariation = getBit(flagsB, 3)
 
   // Use part title map, or custom title
   if (hasTitle) {
@@ -176,6 +179,7 @@ function decodePart (decoder) {
 
   if (hasGoalType) part.goalType = valueGoalTypeMapReverse[decoding.readUint8(decoder)]
   if (hasGoalValue) part.goalValue = decoding.readFloat64(decoder)
+  if (hasGoalTypeVariation) part.goalTypeVariation = decoding.readUint8(decoder)
   if (hasGoalIsVariable) part.goalIsVariable = true
 
   if (hasTargetType) part.targetType = valueGoalTypeMapReverse[decoding.readUint8(decoder)]
