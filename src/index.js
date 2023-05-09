@@ -61,7 +61,9 @@ const valueGoalTypeMap = {
   pacePer100AverageDuration: 31,
   laps: 32,
   lapsInterval: 33,
-  smartLaps: 34
+  smartLaps: 34,
+  paceInterval: 35,
+  pacePer100Interval: 36
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
