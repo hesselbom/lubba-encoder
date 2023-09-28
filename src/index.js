@@ -66,7 +66,8 @@ const valueGoalTypeMap = {
   pacePer100Interval: 36,
   speedInterval: 37,
   pacePerKmMiSegment: 38,
-  speedPerKmMiSegment: 39
+  speedPerKmMiSegment: 39,
+  bpmAverageInterval: 40
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
