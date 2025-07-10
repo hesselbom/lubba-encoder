@@ -79,6 +79,9 @@ const valueGoalTypeMap = {
   powerAverageInterval: 49,
   powerMaxDuration: 50,
   power: 51,
+  runningStrideLength: 52,
+  runningStrideLengthAverageDuration: 53,
+  runningStrideLengthAverageInterval: 54,
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
