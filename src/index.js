@@ -83,6 +83,7 @@ const valueGoalTypeMap = {
   runningStrideLength: 52,
   runningStrideLengthAverageDuration: 53,
   runningStrideLengthAverageInterval: 54,
+  dfaAlpha1: 55,
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)

@@ -247,3 +247,36 @@ test('url encodes slashes to work in browser', () => {
   expect(hashForUrl.includes('/')).toBe(false)
   expect(hashForUrl.includes('%2F')).toBe(true)
 })
+
+test('supports dfaAlpha1 layout values', () => {
+  const encodingVersion = 1
+  const encoded = encodeJsonObjectToLubbaData({
+    isCustom: true,
+    isMetric: true,
+    title: 'DFA workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '1',
+        layoutValues: ['dfaAlpha1']
+      }
+    ]
+  }, encodingVersion)
+
+  expect(decodeLubbaData(encoded)).toEqual({
+    isCustom: true,
+    isMetric: true,
+    title: 'DFA workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '1',
+        layoutValues: ['dfaAlpha1']
+      }
+    ]
+  })
+})
