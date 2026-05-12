@@ -280,3 +280,44 @@ test('supports dfaAlpha1 layout values', () => {
     ]
   })
 })
+
+test('supports CORE2 temperature layout values', () => {
+  const encodingVersion = 1
+  const encoded = encodeJsonObjectToLubbaData({
+    isCustom: true,
+    isMetric: true,
+    title: 'CORE2 workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '2+1',
+        layoutValues: [
+          'coreBodyTemperature',
+          'skinTemperature',
+          'heatStrainIndex'
+        ]
+      }
+    ]
+  }, encodingVersion)
+
+  expect(decodeLubbaData(encoded)).toEqual({
+    isCustom: true,
+    isMetric: true,
+    title: 'CORE2 workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '2+1',
+        layoutValues: [
+          'coreBodyTemperature',
+          'skinTemperature',
+          'heatStrainIndex'
+        ]
+      }
+    ]
+  })
+})

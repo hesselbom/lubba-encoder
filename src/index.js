@@ -26,7 +26,7 @@ const layoutMap = {
   '2+3': 4,
   '3+3': 5,
   '1+1': 6,
-  '1+2': 7,
+  '1+2': 7
 }
 const valueGoalTypeMap = {
   duration: 1,
@@ -84,6 +84,9 @@ const valueGoalTypeMap = {
   runningStrideLengthAverageDuration: 53,
   runningStrideLengthAverageInterval: 54,
   dfaAlpha1: 55,
+  coreBodyTemperature: 56,
+  skinTemperature: 57,
+  heatStrainIndex: 58
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
