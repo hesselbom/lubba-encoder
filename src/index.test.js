@@ -321,3 +321,36 @@ test('supports CORE2 temperature layout values', () => {
     ]
   })
 })
+
+test('supports power percentage of CP layout values', () => {
+  const encodingVersion = 1
+  const encoded = encodeJsonObjectToLubbaData({
+    isCustom: true,
+    isMetric: true,
+    title: 'Power percentage workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '1',
+        layoutValues: ['powerPercentageCP']
+      }
+    ]
+  }, encodingVersion)
+
+  expect(decodeLubbaData(encoded)).toEqual({
+    isCustom: true,
+    isMetric: true,
+    title: 'Power percentage workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '1',
+        layoutValues: ['powerPercentageCP']
+      }
+    ]
+  })
+})
