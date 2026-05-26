@@ -87,7 +87,11 @@ const valueGoalTypeMap = {
   coreBodyTemperature: 56,
   skinTemperature: 57,
   heatStrainIndex: 58,
-  powerPercentageCP: 59
+  powerPercentageCP: 59,
+  powerAverageDurationPercentageCP: 60,
+  powerAverage3sPercentageCP: 61,
+  powerAverage10sPercentageCP: 62,
+  powerAverageIntervalPercentageCP: 63
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)

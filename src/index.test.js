@@ -354,3 +354,42 @@ test('supports power percentage of CP layout values', () => {
     ]
   })
 })
+
+test('supports power average percentage of CP layout values', () => {
+  const encodingVersion = 1
+  const layoutValues = [
+    'powerAverageDurationPercentageCP',
+    'powerAverage3sPercentageCP',
+    'powerAverage10sPercentageCP',
+    'powerAverageIntervalPercentageCP'
+  ]
+  const encoded = encodeJsonObjectToLubbaData({
+    isCustom: true,
+    isMetric: true,
+    title: 'Power average percentage workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '2+2',
+        layoutValues
+      }
+    ]
+  }, encodingVersion)
+
+  expect(decodeLubbaData(encoded)).toEqual({
+    isCustom: true,
+    isMetric: true,
+    title: 'Power average percentage workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '2+2',
+        layoutValues
+      }
+    ]
+  })
+})
