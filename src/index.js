@@ -91,7 +91,10 @@ const valueGoalTypeMap = {
   powerAverageDurationPercentageCP: 60,
   powerAverage3sPercentageCP: 61,
   powerAverage10sPercentageCP: 62,
-  powerAverageIntervalPercentageCP: 63
+  powerAverageIntervalPercentageCP: 63,
+  powerToHeartRateRatio: 64,
+  powerToHeartRateRatioAverageDuration: 65,
+  powerToHeartRateRatioAverageInterval: 66
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)

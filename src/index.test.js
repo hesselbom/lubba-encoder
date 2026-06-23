@@ -393,3 +393,41 @@ test('supports power average percentage of CP layout values', () => {
     ]
   })
 })
+
+test('supports power to heart rate ratio layout values', () => {
+  const encodingVersion = 1
+  const layoutValues = [
+    'powerToHeartRateRatio',
+    'powerToHeartRateRatioAverageDuration',
+    'powerToHeartRateRatioAverageInterval'
+  ]
+  const encoded = encodeJsonObjectToLubbaData({
+    isCustom: true,
+    isMetric: true,
+    title: 'Power to HR ratio workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '2+1',
+        layoutValues
+      }
+    ]
+  }, encodingVersion)
+
+  expect(decodeLubbaData(encoded)).toEqual({
+    isCustom: true,
+    isMetric: true,
+    title: 'Power to HR ratio workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '2+1',
+        layoutValues
+      }
+    ]
+  })
+})
