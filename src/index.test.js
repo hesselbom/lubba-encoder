@@ -322,6 +322,51 @@ test('supports CORE2 temperature layout values', () => {
   })
 })
 
+test('supports Tymewear breathing layout values', () => {
+  const encodingVersion = 1
+  const encoded = encodeJsonObjectToLubbaData({
+    isCustom: true,
+    isMetric: true,
+    title: 'Tymewear workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '2+3',
+        layoutValues: [
+          'breathingRate',
+          'tidalVolume',
+          'minuteVentilation',
+          'minuteVentilationAverage60s',
+          'inhaleExhaleRatio'
+        ]
+      }
+    ]
+  }, encodingVersion)
+
+  expect(decodeLubbaData(encoded)).toEqual({
+    isCustom: true,
+    isMetric: true,
+    title: 'Tymewear workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        layout: '2+3',
+        layoutValues: [
+          'breathingRate',
+          'tidalVolume',
+          'minuteVentilation',
+          'minuteVentilationAverage60s',
+          'inhaleExhaleRatio'
+        ]
+      }
+    ]
+  })
+})
+
 test('supports power percentage of CP layout values', () => {
   const encodingVersion = 1
   const encoded = encodeJsonObjectToLubbaData({
