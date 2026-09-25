@@ -476,3 +476,86 @@ test('supports power to heart rate ratio layout values', () => {
     ]
   })
 })
+
+test('preserves workout notes layout values in single, grid, and nested layouts', () => {
+  const workout = {
+    isCustom: true,
+    isMetric: true,
+    title: 'Race plan',
+    activityType: 37,
+    locationType: 3,
+    parts: [
+      { layout: '1', layoutValues: ['workoutNotes'] },
+      {
+        layout: '2+2',
+        layoutValues: ['workoutNotes', 'duration', 'distance', 'bpm']
+      },
+      {
+        repeats: 2,
+        repeatParts: [{ layout: '1', layoutValues: ['workoutNotes'] }]
+      }
+    ]
+  }
+  const encoded = encodeJsonObjectToLubbaData(workout, 1)
+  const hash = encodeLubbaDataToHash(encoded)
+
+  expect(decodeLubbaData(decodeLubbaDataFromHash(hash))).toEqual(workout)
+})
+
+test('uses the next unused layout value ID without changing existing IDs', () => {
+  const encoded = encodeJsonObjectToLubbaData({
+    isMetric: true,
+    title: '',
+    activityType: 37,
+    locationType: 3,
+    parts: [{ layoutValues: ['inhaleExhaleRatio', 'workoutNotes', 'duration'] }]
+  }, 1)
+
+  expect(Array.from(encoded.slice(-3))).toEqual([71, 72, 1])
+})
+
+test.each([
+  '',
+  'Fuel every 30 minutes.\n\nRelax shoulders.\nFinish strong.\n',
+  'Ät en gel. 飲水 🏃\nKeep going!',
+  'Long race plan: fuel, drink, relax.\n'.repeat(3000)
+])('preserves notes through JSON and URL hash encoding (%#)', (notes) => {
+  const workout = { ...jsonObject, notes }
+  const encoded = encodeJsonObjectToLubbaData(workout, 1)
+  const hash = encodeLubbaDataToHash(encoded, true)
+  const decoded = decodeLubbaData(decodeLubbaDataFromHash(decodeURIComponent(hash)))
+
+  expect(decoded).toEqual({ ...result, notes })
+  const legacyBytes = encodeJsonObjectToLubbaData(jsonObject, 1)
+  expect(encoded.slice(0, legacyBytes.length)).toEqual(legacyBytes)
+})
+
+test('preserves YAML multiline notes', () => {
+  const encoded = encodeYamlToLubbaData(yaml + `notes: |
+  Take a gel every 30 minutes.
+
+  Relax shoulders.
+`, 1)
+  expect(decodeLubbaData(encoded)).toEqual({
+    ...result,
+    notes: 'Take a gel every 30 minutes.\n\nRelax shoulders.\n'
+  })
+})
+
+test('omits null notes and keeps legacy hashes unchanged', () => {
+  const legacyBytes = encodeJsonObjectToLubbaData(jsonObject, 1)
+  const withoutNotes = encodeJsonObjectToLubbaData({ ...jsonObject, notes: null }, 1)
+
+  expect(withoutNotes).toEqual(legacyBytes)
+  expect(decodeLubbaData(withoutNotes)).toEqual(result)
+  expect(decodeLubbaData(decodeLubbaDataFromHash(
+    'AQERTXkgY3VzdG9tIHdvcmtvdXQlAAAAAwMBAAEZAAgCQI9AAAAAAAABAAY='
+  ))).toMatchObject({
+    title: 'My custom workout',
+    parts: [
+      { title: 'Warmup' },
+      { title: 'Run', goalType: 'distance', goalValue: 1000 },
+      { title: 'Cooldown' }
+    ]
+  })
+})

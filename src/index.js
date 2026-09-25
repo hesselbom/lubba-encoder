@@ -99,7 +99,8 @@ const valueGoalTypeMap = {
   tidalVolume: 68,
   minuteVentilation: 69,
   minuteVentilationAverage60s: 70,
-  inhaleExhaleRatio: 71
+  inhaleExhaleRatio: 71,
+  workoutNotes: 72
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
@@ -260,6 +261,10 @@ export function encodeJsonObjectToLubbaData (object, encodingVersion) {
     encodePart(part, encoder)
   }
 
+  // Optional v1 trailer: old decoders stop after parts and safely ignore it.
+  // Omit absent notes so existing workout hashes remain byte-for-byte stable.
+  if (object.notes != null) encoding.writeVarString(encoder, object.notes)
+
   return encoding.toUint8Array(encoder)
 }
 
@@ -282,6 +287,10 @@ export function decodeLubbaData (data) {
     decoded.parts = []
     for (let i = 0; i < amountParts; i++) {
       decoded.parts.push(decodePart(decoder))
+    }
+
+    if (decoding.hasContent(decoder)) {
+      decoded.notes = decoding.readVarString(decoder)
     }
 
     return decoded
