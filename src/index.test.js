@@ -367,6 +367,33 @@ test('supports Tymewear breathing layout values', () => {
   })
 })
 
+test('supports VE workout targets', () => {
+  const encodingVersion = 1
+  const workout = {
+    isCustom: true,
+    isMetric: true,
+    title: 'VE target workout',
+    activityType: 37,
+    locationType: 1,
+    parts: [
+      {
+        title: 'Run',
+        goalType: 'duration',
+        goalValue: 600,
+        targetType: 've',
+        targetMin: 40,
+        targetMax: 48,
+        layout: '1+1',
+        layoutValues: ['minuteVentilation', 'minuteVentilationAverage60s']
+      }
+    ]
+  }
+
+  const encoded = encodeJsonObjectToLubbaData(workout, encodingVersion)
+
+  expect(decodeLubbaData(encoded)).toEqual(workout)
+})
+
 test('supports power percentage of CP layout values', () => {
   const encodingVersion = 1
   const encoded = encodeJsonObjectToLubbaData({

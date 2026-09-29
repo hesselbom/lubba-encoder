@@ -100,7 +100,8 @@ const valueGoalTypeMap = {
   minuteVentilation: 69,
   minuteVentilationAverage60s: 70,
   inhaleExhaleRatio: 71,
-  workoutNotes: 72
+  workoutNotes: 72,
+  ve: 73 // used for target type
 }
 
 const partTitleMapReverse = reverseObject(partTitleMap)
