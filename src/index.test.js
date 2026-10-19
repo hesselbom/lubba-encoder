@@ -529,7 +529,55 @@ test('preserves workout notes layout values in single, grid, and nested layouts'
   expect(decodeLubbaData(decodeLubbaDataFromHash(hash))).toEqual(workout)
 })
 
-test('uses the next unused layout value ID without changing existing IDs', () => {
+test('preserves map layout values in full, split-grid and nested share links', () => {
+  const workout = {
+    isCustom: true,
+    isMetric: true,
+    title: 'Offline map workout',
+    activityType: 37,
+    locationType: 3,
+    parts: [
+      { layout: '1', layoutValues: ['map'] },
+      { layout: '2+2', layoutValues: ['map', 'duration', 'distance', 'bpm'] },
+      { repeats: 2, repeatParts: [{ layout: '1+1', layoutValues: ['workoutNotes', 'map'] }] }
+    ]
+  }
+  const encoded = encodeJsonObjectToLubbaData(workout, 1)
+  const hash = encodeLubbaDataToHash(encoded, true)
+  expect(decodeLubbaData(decodeLubbaDataFromHash(decodeURIComponent(hash)))).toEqual(workout)
+})
+
+test('preserves maps in YAML workout layouts', () => {
+  const encoded = encodeYamlToLubbaData('title: Map run\nactivityType: 37\nlocationType: 3\nparts:\n- layout: "1"\n  layoutValues: [map]\n', 1)
+  expect(decodeLubbaData(encoded).parts).toEqual([{ layout: '1', layoutValues: ['map'] }])
+})
+
+test('keeps pre-map VE and notes share codes byte-for-byte compatible', () => {
+  const hash = 'AQEJTGVnYWN5IFZFJQAAAAMBxgEGAkgBSUBEAAAAAAAAQEgAAAAAAAA='
+  const workout = {
+    isCustom: true,
+    isMetric: true,
+    title: 'Legacy VE',
+    activityType: 37,
+    locationType: 3,
+    parts: [{ targetType: 've', targetMin: 40, targetMax: 48, layout: '1+1', layoutValues: ['workoutNotes', 'duration'] }]
+  }
+  expect(decodeLubbaData(decodeLubbaDataFromHash(hash))).toEqual(workout)
+  expect(encodeLubbaDataToHash(encodeJsonObjectToLubbaData(workout, 1))).toBe(hash)
+})
+
+test('uses map ID 74 without changing existing layout or VE target IDs', () => {
+  const encoded = encodeJsonObjectToLubbaData({
+    isMetric: true,
+    title: '',
+    activityType: 37,
+    locationType: 3,
+    parts: [{ layoutValues: ['inhaleExhaleRatio', 'workoutNotes', 'map', 'duration'], targetType: 've' }]
+  }, 1)
+  expect(Array.from(encoded.slice(-5))).toEqual([71, 72, 74, 1, 73])
+})
+
+test('uses the next unused notes layout value ID without changing existing IDs', () => {
   const encoded = encodeJsonObjectToLubbaData({
     isMetric: true,
     title: '',
