@@ -634,3 +634,22 @@ test('omits null notes and keeps legacy hashes unchanged', () => {
     ]
   })
 })
+
+test.each([
+  ['1+1+1', 8, 3],
+  ['1+2+1', 9, 4],
+  ['1+2+2', 10, 5],
+  ['2+2+2', 11, 6],
+  ['1L+1', 12, 2],
+  ['1L+2', 13, 3]
+])('preserves new layout %s in binary, YAML and nested parts', (layout, id, count) => {
+  const layoutValues = ['map', 'duration', 'distance', 'paceCurrent', 'bpm', 'power'].slice(0, count)
+  const part = { layout, layoutValues }
+  const workout = { isMetric: true, title: 'Grid', activityType: 37, locationType: 3, parts: [part, { repeats: 2, repeatParts: [part] }] }
+  const decoded = decodeLubbaData(encodeJsonObjectToLubbaData(workout, 1))
+  expect(decoded.parts).toEqual(workout.parts)
+  const yaml = `title: Grid\nactivityType: 37\nlocationType: 3\nparts:\n- layout: "${layout}"\n  layoutValues: [${layoutValues.join(', ')}]\n`
+  expect(decodeLubbaData(encodeYamlToLubbaData(yaml, 1)).parts).toEqual([part])
+  const encoded = encodeJsonObjectToLubbaData({ ...workout, parts: [{ layout }] }, 1)
+  expect(encoded[encoded.length - 1]).toBe(id)
+})
