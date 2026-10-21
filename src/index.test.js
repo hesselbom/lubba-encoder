@@ -641,7 +641,8 @@ test.each([
   ['1+2+2', 10, 5],
   ['2+2+2', 11, 6],
   ['1L+1', 12, 2],
-  ['1L+2', 13, 3]
+  ['1L+2', 13, 3],
+  ['1L+3', 14, 4]
 ])('preserves new layout %s in binary, YAML and nested parts', (layout, id, count) => {
   const layoutValues = ['map', 'duration', 'distance', 'paceCurrent', 'bpm', 'power'].slice(0, count)
   const part = { layout, layoutValues }

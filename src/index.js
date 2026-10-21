@@ -32,7 +32,8 @@ const layoutMap = {
   '1+2+2': 10,
   '2+2+2': 11,
   '1L+1': 12,
-  '1L+2': 13
+  '1L+2': 13,
+  '1L+3': 14
 }
 const valueGoalTypeMap = {
   duration: 1,
